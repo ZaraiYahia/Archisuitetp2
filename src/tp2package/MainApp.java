@@ -1,3 +1,4 @@
+package tp2package;
 import java.sql.SQLException;
 
 public class MainApp {
@@ -8,8 +9,7 @@ public class MainApp {
 
 		EtudiantService serv=new EtudiantService();
 		try {
-			serv.inscription(2, "Guendouziiiii", "wassila", "guen@gmail.com","xxxx", 1);
-			
+			serv.inscription(101, "Guendouziiiii", "wassila", "geuen@gmail.comm","xxxx", 1);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
