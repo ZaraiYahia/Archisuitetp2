@@ -11,25 +11,35 @@ public class EtudiantRepository implements EtudiantServiceInterface {
 	
 	void add(Etudiant E) throws SQLException, FileNotFoundException
 	{
-
+		UniversiteRepository UnivRep= new UniversiteRepository();
+	    Universite univ=UnivRep.GetById(E.getId_universite());
+	
 //		new DBConnection();
 		OutputWindowMessage popup = new OutputWindowMessage();
-		OutputSavefileMessage savefile = new OutputSavefileMessage();
+//		OutputSavefileMessage savefile = new OutputSavefileMessage();
 		DBConnection BD= DBConnection.getInstance();
 		Connection connect=BD.getConn();
 		
 		Statement stmt = connect.createStatement();
 		String sql = "INSERT INTO etudiant VALUES (" + E.getMatricule() + ",'" + E.getNom() + "','" + E.getPrenom() + "','" + E.getEmail() + "','"+E.getPwd()+ "'," +E.getNbLivreMensuel_Autorise() + "," +E.getNbLivreEmprunte() + "," +E.getId_universite()+")";
 		int rs = stmt.executeUpdate(sql);
+		if (univ.getPack() == TypePackage.Standard)
+	    {
+	          E.setNbLivreMensuel_Autorise(10);
+	          
+	    }
+	    else if (univ.getPack() == TypePackage.Premium)
+	    {
+	    	 E.setNbLivreMensuel_Autorise(10*2);
+	    }                           
+	     
 		
 		if (rs == 1){
 			    popup.outPut_Msg("log : ajout dans la BD eBOOKS de l'�tudiant  du Matricule",E.getMatricule());
 				System.out.println("log : ajout dans la BD eBOOKS de l'�tudiant  du Matricule" + E.getMatricule());
-//			    savefile.outPut_Msg("log : ajout dans la BD eBOOKS de l'�tudiant  du Matricule", E.getMatricule());
 			}else if (rs == 0){
 			    popup.outPut_Msg("log : Echec de l'ajout dans la BD de l'�tudiant  du Matricule",E.getMatricule());
 				System.out.println("log : Echec de l'ajout dans la BD de l'�tudiant  du Matricule" + E.getMatricule());
-//				savefile.outPut_Msg("log : Echec de l'ajout dans la BD de l'�tudiant  du Matricule", E.getMatricule());
 			}
 		connect.close();
 	 }

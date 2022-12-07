@@ -1,1 +1,2 @@
-Log: d�but de l'op�ration d'ajout de l'�tudiant avec matricule 129
+Log: d�but de l'op�ration d'ajout de l'�tudiant avec matricule 132
+logBD--- :etudiant avec ce matricule existe d�ja dans la BD  132
