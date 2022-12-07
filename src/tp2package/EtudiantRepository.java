@@ -11,7 +11,8 @@ public class EtudiantRepository {
 	void add(Etudiant E) throws SQLException
 	{
 
-		DBConnection BD= new DBConnection();
+//		new DBConnection();
+		DBConnection BD= DBConnection.getInstance();
 		Connection connect=BD.getConn();
 		
 		Statement stmt = connect.createStatement();
@@ -29,7 +30,8 @@ public class EtudiantRepository {
 
 	boolean Exists(String email) throws SQLException	
 	{
-		DBConnection BD= new DBConnection();
+//		DBConnection BD= new DBConnection();
+		DBConnection BD= DBConnection.getInstance();
 		Connection connect=BD.getConn();
 		
 		Statement stmt = connect.createStatement();
@@ -48,13 +50,14 @@ public class EtudiantRepository {
 	
 	boolean Exists(int mat) throws SQLException	
 	{
-		DBConnection BD= new DBConnection();
+//		DBConnection BD= new DBConnection();
+		DBConnection BD= DBConnection.getInstance();
 		Connection connect=BD.getConn();
 		
 		Statement stmt = connect.createStatement();
 		String sql = "SELECT * FROM etudiant WHERE matricule="+ mat;
 		boolean rs = stmt.execute(sql);
-		System.out.println(rs);
+		
 		if (rs){
 			System.out.println("logBD--- :etudiant avec ce matricule existe d�ja dans la BD  " + mat);
 			connect.close();
