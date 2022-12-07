@@ -3,6 +3,7 @@ package tp2package;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -21,19 +22,22 @@ public class EtudiantRepository implements EtudiantServiceInterface {
 		Connection connect=BD.getConn();
 		
 		Statement stmt = connect.createStatement();
-		String sql = "INSERT INTO etudiant VALUES (" + E.getMatricule() + ",'" + E.getNom() + "','" + E.getPrenom() + "','" + E.getEmail() + "','"+E.getPwd()+ "'," +E.getNbLivreMensuel_Autorise() + "," +E.getNbLivreEmprunte() + "," +E.getId_universite()+")";
-		int rs = stmt.executeUpdate(sql);
+		String sql = null;
+		
+		
 		if (univ.getPack() == TypePackage.Standard)
 	    {
 	          E.setNbLivreMensuel_Autorise(10);
+	          sql = "INSERT INTO etudiant VALUES (" + E.getMatricule() + ",'" + E.getNom() + "','" + E.getPrenom() + "','" + E.getEmail() + "','"+E.getPwd()+ "'," +E.getNbLivreMensuel_Autorise() + "," +E.getNbLivreEmprunte() + "," +E.getId_universite()+")";
 	          
 	    }
 	    else if (univ.getPack() == TypePackage.Premium)
 	    {
 	    	 E.setNbLivreMensuel_Autorise(10*2);
-	    }                           
-	     
+	    	 sql = "INSERT INTO etudiant VALUES (" + E.getMatricule() + ",'" + E.getNom() + "','" + E.getPrenom() + "','" + E.getEmail() + "','"+E.getPwd()+ "'," +E.getNbLivreMensuel_Autorise() + "," +E.getNbLivreEmprunte() + "," +E.getId_universite()+")";
+	    }        
 		
+		int rs = stmt.executeUpdate(sql);
 		if (rs == 1){
 			    popup.outPut_Msg("log : ajout dans la BD eBOOKS de l'�tudiant  du Matricule",E.getMatricule());
 				System.out.println("log : ajout dans la BD eBOOKS de l'�tudiant  du Matricule" + E.getMatricule());
@@ -50,18 +54,18 @@ public class EtudiantRepository implements EtudiantServiceInterface {
 //		DBConnection BD= new DBConnection();
 		DBConnection BD= DBConnection.getInstance();
 		Connection connect=BD.getConn();
-		
+
 		Statement stmt = connect.createStatement();
 		String sql = "select * from etudiant where email='"+ email+"'";
-		boolean rs = stmt.execute(sql);
-		
-		if (rs){
+		ResultSet rs = stmt.executeQuery(sql);
+
+		if (rs.isBeforeFirst()){
 			System.out.println("logBD--- :email existe dans la BD  " + email);
-			connect.close();
+			rs.next();	
 			return true;
 			}
 		System.out.println("logBD--- : email n'existe pas " + email);	
-		connect.close();
+		rs.next();	
 		return false;
 	}
 	
@@ -70,18 +74,19 @@ public class EtudiantRepository implements EtudiantServiceInterface {
 //		DBConnection BD= new DBConnection();
 		DBConnection BD= DBConnection.getInstance();
 		Connection connect=BD.getConn();
-		
 		Statement stmt = connect.createStatement();
-		String sql = "SELECT * FROM etudiant WHERE matricule="+ mat;
-		boolean rs = stmt.execute(sql);
 		
-		if (rs){
-			System.out.println("logBD--- :etudiant avec ce matricule existe d�ja dans la BD  " + mat);
+		String sql = "SELECT * FROM etudiant WHERE matricule="+ mat;
+		ResultSet rs = stmt.executeQuery(sql);
+//		System.out.println(!rs);
+		if (rs.isBeforeFirst()){
+			System.out.println("logBD--- :etudiant avec ce matricule existe d�ja dans la BD " + mat);
 			connect.close();
 			return true;
 			}
 		System.out.println("logBD----: etudiant avec ce matricule n'existe pas " + mat);	
-		connect.close();
+		
+		rs.next();	
 		return false;
 	}
 

@@ -24,27 +24,27 @@ public class EtudiantService implements EtudiantServiceInterface  {
 	    {
 	    	return false;
 	    }
+	    if (StudRep.Exists(email))
+	    {
+	        return false;
+	    }
 	    
 	    if (StudRep.Exists(matricule))
 	    {
 	        return false;
 	    }
 	    
-		if (StudRep.Exists(email))
-	    {
-	        return false;
-	    }
 		
 		
 		
-		 if (univ.getPack() == TypePackage.Standard)
-	     {
-	          stud.setNbLivreMensuel_Autorise(10);
-	     }
-	     else if (univ.getPack() == TypePackage.Premium)
-	     {
-	    	 stud.setNbLivreMensuel_Autorise(10*2);
-	     }                           
+//		 if (univ.getPack() == TypePackage.Standard)
+//	     {
+//	          stud.setNbLivreMensuel_Autorise(10);
+//	     }
+//	     else if (univ.getPack() == TypePackage.Premium)
+//	     {
+//	    	 stud.setNbLivreMensuel_Autorise(10*2);
+//	     }                           
 	     
 		 StudRep.add(stud);
 		 popup.outPut_Msg("Log: Fin de l'op�ration d'ajout de l'�tudiant avec matricule ",matricule);
