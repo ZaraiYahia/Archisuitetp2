@@ -9,7 +9,7 @@ public class MainApp {
 
 		EtudiantService serv=new EtudiantService();
 		try {
-			serv.inscription(104, "Guendouziiiii", "wassila", "geuen@gmail.comm","xxxx", 1);
+			serv.inscription(129, "Guendouziiiii", "wassila", "geuen@gmail.comm","xxxx", 1);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

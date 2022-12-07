@@ -1,5 +1,6 @@
 package tp2package;
 
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -8,10 +9,12 @@ import java.sql.Statement;
 public class EtudiantRepository implements EtudiantServiceInterface {
 	
 	
-	void add(Etudiant E) throws SQLException
+	void add(Etudiant E) throws SQLException, FileNotFoundException
 	{
 
 //		new DBConnection();
+		OutputWindowMessage popup = new OutputWindowMessage();
+		OutputSavefileMessage savefile = new OutputSavefileMessage();
 		DBConnection BD= DBConnection.getInstance();
 		Connection connect=BD.getConn();
 		
@@ -20,9 +23,13 @@ public class EtudiantRepository implements EtudiantServiceInterface {
 		int rs = stmt.executeUpdate(sql);
 		
 		if (rs == 1){
+			    popup.outPut_Msg("log : ajout dans la BD eBOOKS de l'�tudiant  du Matricule",E.getMatricule());
 				System.out.println("log : ajout dans la BD eBOOKS de l'�tudiant  du Matricule" + E.getMatricule());
+//			    savefile.outPut_Msg("log : ajout dans la BD eBOOKS de l'�tudiant  du Matricule", E.getMatricule());
 			}else if (rs == 0){
+			    popup.outPut_Msg("log : Echec de l'ajout dans la BD de l'�tudiant  du Matricule",E.getMatricule());
 				System.out.println("log : Echec de l'ajout dans la BD de l'�tudiant  du Matricule" + E.getMatricule());
+//				savefile.outPut_Msg("log : Echec de l'ajout dans la BD de l'�tudiant  du Matricule", E.getMatricule());
 			}
 		connect.close();
 	 }
