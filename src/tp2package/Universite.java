@@ -1,6 +1,6 @@
 package tp2package;
 
-public class Universite {
+public class Universite implements EtudiantServiceInterface{
 
  private int i_univ; //identifiant unique de l'universit�
  private String nom;

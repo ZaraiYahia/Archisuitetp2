@@ -1,6 +1,6 @@
 package tp2package;
 
-public class Etudiant {
+public class Etudiant implements EtudiantServiceInterface {
 
 		private int matricule;
 	    private String nom;

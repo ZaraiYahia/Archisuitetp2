@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class EtudiantRepository {
+public class EtudiantRepository implements EtudiantServiceInterface {
 	
 	
 	void add(Etudiant E) throws SQLException
@@ -20,7 +20,7 @@ public class EtudiantRepository {
 		int rs = stmt.executeUpdate(sql);
 		
 		if (rs == 1){
-				System.out.println("log : ajout dans la BD r�ussi de l'�tudiant  du Matricule" + E.getMatricule());
+				System.out.println("log : ajout dans la BD eBOOKS de l'�tudiant  du Matricule" + E.getMatricule());
 			}else if (rs == 0){
 				System.out.println("log : Echec de l'ajout dans la BD de l'�tudiant  du Matricule" + E.getMatricule());
 			}

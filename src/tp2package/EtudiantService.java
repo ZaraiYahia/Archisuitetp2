@@ -4,7 +4,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-public class EtudiantService {
+public class EtudiantService implements EtudiantServiceInterface  {
 	
 	
 	boolean inscription (int matricule, String nom, String prenom, String email,String pwd, int id_universite) throws SQLException	
